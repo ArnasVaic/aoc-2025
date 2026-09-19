@@ -1,0 +1,18 @@
+cabal-version: 3.0
+name:          advent-of-code
+version:       0.1.0.0
+
+executable Day1
+    main-is:          Day1.hs
+    hs-source-dirs:   app
+    build-depends:
+        base,
+    default-language: Haskell2010
+
+executable Day2
+    main-is:          Day2.hs
+    hs-source-dirs:   app
+    build-depends:
+        base,
+        split
+    default-language: Haskell2010

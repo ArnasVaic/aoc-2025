@@ -6,10 +6,10 @@ import Data.Maybe
 
 main :: IO ()
 main = do
-    s1 <- getSolution solve1 "Day1.txt"
+    s1 <- getSolution solve1 "inputs/Day1.txt"
     putStrLn $ "Part 1: " ++ show s1
 
-    s2 <- getSolution solve2 "Day1.txt"
+    s2 <- getSolution solve2 "inputs/Day1.txt"
     putStrLn $ "Part 2: " ++ show s2
 
 solve1 :: [Rotation] -> Int

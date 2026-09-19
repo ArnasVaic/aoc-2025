@@ -10,8 +10,6 @@ main = do
 sumInvalidIds :: [[Integer]] -> Integer
 sumInvalidIds = sum . map (sum . filter (not . valid))
 
-data Range = Range { from :: Integer, to :: Integer } deriving Show
-
 valid :: Integer -> Bool
 valid num = case even numLen of
     True ->

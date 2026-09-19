@@ -4,14 +4,18 @@ import Text.Read (readMaybe)
 main :: IO ()
 main = do
     input <- readFile "inputs/Day2.txt"
-    let s1 = sumInvalidIds <$> parse input
+    let idRanges = parse input
+    let s1 = sumIds (not . isIdValidP1) <$> idRanges
     putStrLn $ "Part 1: " ++ show s1
 
-sumInvalidIds :: [[Integer]] -> Integer
-sumInvalidIds = sum . map (sum . filter (not . valid))
+    let s2 = sumIds (not . isIdValidP2) <$> idRanges
+    putStrLn $ "Part 2: " ++ show s2
 
-valid :: Integer -> Bool
-valid num = case even numLen of
+sumIds :: (Integer -> Bool) -> [[Integer]] -> Integer
+sumIds f = sum . map (sum . filter f)
+
+isIdValidP1 :: Integer -> Bool
+isIdValidP1 num = case even numLen of
     True ->
         let halves = splitAt (div numLen 2) numAsStr
         in fst halves /= snd halves
@@ -19,6 +23,20 @@ valid num = case even numLen of
     where
     numAsStr = show num
     numLen = length numAsStr
+
+isIdValidP2 :: Integer -> Bool
+isIdValidP2 = not . isRepeating . show
+
+properDivisors :: Integral a => a -> [a]
+properDivisors n = [d | d <- [1..n-1], mod n d == 0]
+
+isRepeating :: String -> Bool
+isRepeating s = any id $ map (\n -> isRepeatingN n s) divs where
+    divs = properDivisors $ length s
+
+isRepeatingN :: Int -> String -> Bool
+isRepeatingN n s = all (== chunk) $ chunksOf n s
+    where chunk = take n s
 
 parse :: String -> Maybe [[Integer]]
 parse input = traverse parseRange $ splitOn "," input

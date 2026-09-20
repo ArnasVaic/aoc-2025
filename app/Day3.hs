@@ -3,7 +3,7 @@ import Data.List
 import Data.Maybe
 import Control.Monad.State
 
-newtype Battery = Battery { joltageRating :: Integer } deriving (Eq, Ord)
+newtype Battery = Battery { joltageRating :: Integer } deriving Eq
 newtype Bank = Bank { batteries :: [Battery] }
 
 main :: IO ()

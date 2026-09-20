@@ -60,11 +60,11 @@ maximalBattery :: Bank -> Battery
 maximalBattery (Bank batteries) = Battery $ maximum $ map joltageRating batteries
 
 shrink :: Bank -> Battery -> Maybe Bank
-shrink bank chosen = do
-    index <- elemIndex chosen (batteries bank)
+shrink (Bank batteries) chosen = do
+    index <- elemIndex chosen batteries
     -- Exclude not only batteries to the left
     -- but also the chosen battery
-    pure $ Bank $ drop (index + 1) (batteries bank)
+    pure $ Bank $ drop (index + 1) batteries
 
 parse :: String -> Maybe [Bank]
 parse = traverse parseBank . lines
